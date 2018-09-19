@@ -1,0 +1,9 @@
+{application, nif_test,
+ [{description, "An OTP application"},
+  {vsn, "0.1.0"},
+  {applications,
+   [kernel,
+    stdlib
+   ]},
+  {modules, [nif_test, intf]}
+ ]}.

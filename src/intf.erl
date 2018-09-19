@@ -1,6 +1,6 @@
 -module(intf).
 
--export([unload/0, load/0, init/0]).
+-export([unload/0, free/0, init/0]).
 
 init() ->
     case code:is_loaded(nif_test) of
@@ -8,7 +8,8 @@ init() ->
         _ -> ok
     end,
     R = nif_test:make_resource(),
-    nif_test:clear_resource(R).
+    nif_test:clear_resource(R),
+    {mem_free, free(), '%'}.
 
 unload() ->
     code:purge(nif_test),
@@ -16,7 +17,6 @@ unload() ->
     code:purge(nif_test),
     code:delete(nif_test).
 
-load() ->
-    code:load_file(nif_test),
-    code:load_file(nif_test),
-    code:load_file(nif_test).
+free() ->
+    #{total := Total, binary := Bin} = maps:from_list(erlang:memory()),
+    ((Total - Bin) / Total) * 100.

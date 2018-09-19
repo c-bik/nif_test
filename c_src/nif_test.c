@@ -34,8 +34,10 @@ static ERL_NIF_TERM clear_resource(ErlNifEnv* env, int argc, const ERL_NIF_TERM 
         printf("%s:%d\r\n", __FUNCTION__, __LINE__);
         return enif_make_badarg(env);
     }
+    printf("%s:%d allocating buf1 %d bytes\r\n", __FUNCTION__, __LINE__, sizeof(res->buf1));
     for(i = 0; i < sizeof(res->buf1); ++i)
         res->buf1[i] = 0x00;
+    printf("%s:%d allocating buf2 %d bytes\r\n", __FUNCTION__, __LINE__, sizeof(res->buf2));
     for(i = 0; i < sizeof(res->buf2); ++i)
         res->buf2[i] = 0x00;
 
